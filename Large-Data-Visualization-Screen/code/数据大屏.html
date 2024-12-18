@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据大屏</title>
+    <!-- js文件 -->
+    <script src="../js/echarts.js"></script>
+    <script src="../js/jquery-3.3.1.js"></script>
+    <!-- 调用js文件，异步加载数据 -->
+    <script src="../data/不同支付方式用户人数.js"></script>
+    <script src="../data/各类商品存货周转天数.js"></script>
+    <script src="../data/近5日新增和流失用户数据.js"></script>
+    <!-- <script src="../data/售货机销售金额及其环比增长率.js"></script> -->
+    
+    <style>
+        #crq_sz {
+            /* background-color: burlywood; */
+            width: 1560px;
+            height: 50px;
+            font-family: 微软雅黑;
+            font-size: 30px;
+            margin: 10px;
+            text-align: center;
+            color: #FF5733; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 4px rgba(21, 234, 9, 0.5);
+        }
+        
+        #crq_big {
+            width: 1560px;
+            height: 780px;
+            margin: 10px;
+            /* background-color: aquamarine; */
+        }
+        
+        #crq_1 {
+            width: 500px;
+            height: 400px;
+            margin: 10px;
+            /* background-color: antiquewhite; */
+            float: left;
+        }
+        
+        #crq_2 {
+            width: 500px;
+            height: 400px;
+            margin: 10px;
+            /* background-color: greenyellow; */
+            float: left;
+        }
+        
+        #crq_3 {
+            width: 500px;
+            height: 400px;
+            margin: 10px;
+            /* background-color: palevioletred; */
+            float: left;
+        }
+        
+        #crq_4 {
+            width: 1540px;
+            height: 340px;
+            margin: 10px;
+            /* background-color: wheat; */
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="crq_sz">数据大屏</div>
+    <div id="crq_big">
+        <div id="crq_1"></div>
+        <div id="crq_2"></div>
+        <div id="crq_3"></div>
+        <div id="crq_4"></div>
+    </div>
+    <script>
+         var myChart = echarts.init(document.getElementById('crq_4'));
+
+        myChart.setOption({
+            legend: {
+                data: ["销售金额", "销售金额环比增长率"]
+            },
+            xAxis: [{
+                type: 'category',
+                data: []
+            }],
+            yAxis: [{
+                type: "value",
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }, {
+                type: "value",
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            }],
+            series: [{
+                name: '销售金额',
+                type: 'bar',
+                data: []
+            }, {
+                name: '销售金额环比增长率',
+                type: 'line',
+                yAxisIndex: 1,
+                data: []
+            }],
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '../JSON数据/售货机销售金额及其环比增长率.json', //请求数据的地址
+            dataType: "json",
+            success: function(result) {
+                myChart.hideLoading(); //隐藏加载动画
+                myChart.setOption({ //加载数据图表
+                    xAxis: [{
+                        type: 'category',
+                        data: result.日期
+                    }],
+                    series: [{
+                        name: "销售金额",
+                        type: 'bar',
+                        data: result.销售金额
+                    }, {
+                        name: "销售金额环比增长率",
+                        type: 'line',
+                        data: result.销售金额环比增长率
+                    }]
+                });
+            },
+            error: function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+                myChart.hideLoading();
+            }
+        });
+    </script>
+</body>
+
+</html>
