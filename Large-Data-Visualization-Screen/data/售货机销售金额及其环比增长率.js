@@ -1,4 +1,4 @@
-$.get('../JSON数据/售货机销售金额及其环比增长率.json').done(function(result) {
+$.get('../JSON_data/售货机销售金额及其环比增长率.json').done(function(result) {
     var mychart = echarts.init(document.getElementById("crq_4"))
     mychart.hideLoading(),
         mychart.setOption({

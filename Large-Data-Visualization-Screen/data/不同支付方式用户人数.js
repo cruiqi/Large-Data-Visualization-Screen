@@ -1,5 +1,5 @@
 // 不同类型用户的人数
-$.get("../JSON数据/不同支付方式用户人数.json").done(function(data) {
+$.get("../JSON_data/不同支付方式用户人数.json").done(function(data) {
     var myChart = echarts.init(document.getElementById("crq_1"));
     myChart.setOption({
         color: ['purple', 'Olive', 'palevioletred'],

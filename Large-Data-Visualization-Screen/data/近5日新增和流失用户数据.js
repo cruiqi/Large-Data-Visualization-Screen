@@ -1,4 +1,4 @@
-$.get('../JSON数据/近5日新增和流失用户数据.json').done(function(result) {
+$.get('../JSON_data/近5日新增和流失用户数据.json').done(function(result) {
     var mychart = echarts.init(document.getElementById("crq_3"))
     mychart.hideLoading(),
         mychart.setOption({

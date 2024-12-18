@@ -1,5 +1,5 @@
 // 不同类型用户的人数
-$.get("../JSON数据/各类商品存货周转天数.json").done(function(data) {
+$.get("../JSON_data/各类商品存货周转天数.json").done(function(data) {
     var myChart = echarts.init(document.getElementById("crq_2"));
     myChart.setOption({
         
